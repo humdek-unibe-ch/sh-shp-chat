@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `chatRecipiants` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS add_chat_fks;
+DROP PROCEDURE IF EXISTS add_chat_fks //
 CREATE PROCEDURE add_chat_fks()
 BEGIN
     IF NOT EXISTS 
@@ -93,3 +93,5 @@ INSERT IGNORE INTO sections (id_styles, name) VALUES(get_style_id('chat'), 'chat
 INSERT IGNORE INTO pages_sections (id_pages, id_Sections, position) VALUES((SELECT id FROM pages WHERE keyword = 'chatTherapist'), (SELECT id FROM sections WHERE name = 'chatTherapist-container'), 1);
 INSERT IGNORE INTO sections_hierarchy (parent, child, position) VALUES((SELECT id FROM sections WHERE name = 'chatTherapist-container'), (SELECT id FROM sections WHERE name = 'chatTherapist-chat'), 1);
 
+-- register hook outputNavRight
+INSERT IGNORE INTO `hooks_plugins` (`id_hooks`, `id_plugins`) VALUES ((SELECT id FROM hooks WHERE `name` = 'outputNavRight'), (SELECT id FROM plugins WHERE `name` = 'chat'));
