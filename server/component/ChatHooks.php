@@ -87,7 +87,7 @@ class ChatHooks extends BaseHooks
     /**
      * Output an item in nav-right    
      */
-    public function outputNavRight()
+    public function outputChatIcon()
     {
         $key = '';
         if ($this->has_access_to_chat('chatTherapist')) {

@@ -94,4 +94,4 @@ INSERT IGNORE INTO pages_sections (id_pages, id_Sections, position) VALUES((SELE
 INSERT IGNORE INTO sections_hierarchy (parent, child, position) VALUES((SELECT id FROM sections WHERE name = 'chatTherapist-container'), (SELECT id FROM sections WHERE name = 'chatTherapist-chat'), 1);
 
 -- register hook outputNavRight
-INSERT IGNORE INTO `hooks_plugins` (`id_hooks`, `id_plugins`) VALUES ((SELECT id FROM hooks WHERE `name` = 'outputNavRight'), (SELECT id FROM plugins WHERE `name` = 'chat'));
+INSERT IGNORE INTO `hooks_onEnterFunction` (`id_hooks`, `class`, `function`, `exec_class`, `exec_function`) VALUES ((SELECT id FROM hooks WHERE `name` = 'outputNavRight'), 'navView', 'output_profile', 'ChatHooks', 'outputChatIcon');
