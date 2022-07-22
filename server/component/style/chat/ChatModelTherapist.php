@@ -100,8 +100,6 @@ class ChatModelTherapist extends ChatModel
 							INNER JOIN users_groups AS ug2 ON (ug2.id_users = u2.id)
 							INNER  JOIN acl_groups acl ON (acl.id_groups = ug2.id_groups)
 							INNER JOIN pages p ON (acl.id_pages = p.id)
-							LEFT JOIN modules_pages mp ON (mp.id_pages = p.id)
-							LEFT JOIN modules m ON (m.id = mp.id_modules)
                             where ug2.id_users = u.id and keyword = 'chatTherapist'
 							GROUP BY ug2.id_users, acl.id_pages, p.keyword ), 0) = 0)
                         AND (c.id_snd = u.id OR c.id_rcv = u.id) AND c.id_rcv_group = 3) AS count
