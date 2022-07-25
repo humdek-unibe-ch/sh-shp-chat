@@ -66,6 +66,9 @@ CALL add_chat_fks();
 -- Drop the procedure
 DROP PROCEDURE add_chat_fks;
 
+-- Add new style `chat`
+INSERT IGNORE INTO `styles` (`name`, `id_type`, id_group, description) VALUES ('chat', '2', (select id from styleGroup where `name` = 'intern' limit 1), 'Internal style used for chat');
+
 -- add keyword chatSubject
 INSERT IGNORE INTO pages (`id`, `keyword`, `url`, `protocol`, `id_actions`, `id_navigation_section`, `parent`, `is_headless`, `nav_position`, `footer_position`, `id_type`, `id_pageAccessTypes`) 
 VALUES (NULL, 'chatSubject', '/chat/subject/[i:gid]?/[i:uid]?', 'GET|POST', '0000000003', NULL, NULL, '0', NULL, NULL, '0000000003', (SELECT id FROM lookups WHERE lookup_code = "mobile_and_web" LIMIT 0, 1));
