@@ -1,8 +1,9 @@
-# SelfHelp plugin - plotly-graphs
+# SelfHelp plugin - chat
 
-This is a SelfhelpPlugin that is used for loading plotly charts
+This is a SelfhelpPlugin that is used for chat
 
- - The plugin is based on [`plotly.js`](https://plotly.com/javascript/) library
+ - 2 groups are needed, one should contain permissions for `chatTherapist` the other should have permissions for `chatSubject`
+ - The therapist user should be in both groups, the subject only in the group with permissions for `chatSubject`
 
 # Installation
 

@@ -174,8 +174,8 @@ abstract class ChatModel extends StyleModel
      */
     private function fetch_groups()
     {
-        $sql = "SELECT g.id, g.name 
-                FROM groups AS g
+        $sql = "SELECT g.id, g.`name`
+                FROM `groups` AS g
                 INNER JOIN acl_groups acl ON (acl.id_groups = g.id)
                 INNER JOIN pages p ON (acl.id_pages = p.id) 
                 INNER JOIN users_groups ug ON (ug.id_groups = g.id) 
@@ -258,7 +258,7 @@ abstract class ChatModel extends StyleModel
      */
     public function is_user_in_group($user_id)
     {
-        $sql = "SELECT u.id, u.name
+        $sql = "SELECT u.id, u.`name`
                 FROM users AS u
                 INNER JOIN users_groups AS ug ON ug.id_users = u.id
                 WHERE ug.id_groups = :gid and u.id = :uid";
