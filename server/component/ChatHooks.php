@@ -106,5 +106,14 @@ class ChatHooks extends BaseHooks
         $url = $this->get_link_url($key, array("gid" => intval($group['id_groups'])));
         require __DIR__ . '/tpl_chat.php';
     }
+
+    /**
+     * Get the plugin version
+     */
+    public function get_plugin_db_version($plugin_name = 'chat')
+    {
+        return parent::get_plugin_db_version($plugin_name);
+    }
+
 }
 ?>
