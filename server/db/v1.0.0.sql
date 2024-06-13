@@ -74,12 +74,12 @@ INSERT IGNORE INTO pages (`id`, `keyword`, `url`, `protocol`, `id_actions`, `id_
 VALUES (NULL, 'chatSubject', '/chat/subject/[i:gid]?/[i:uid]?', 'GET|POST', '0000000003', NULL, NULL, '0', NULL, NULL, '0000000003', (SELECT id FROM lookups WHERE lookup_code = "mobile_and_web" LIMIT 0, 1));
 
 -- add full permisitons to admin for chatSubject
-INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM groups WHERE name = 'admin'), (SELECT id FROM pages WHERE keyword = 'chatSubject'), '1', '1', '1', '1');
+INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM `groups` WHERE `name` = 'admin'), (SELECT id FROM pages WHERE keyword = 'chatSubject'), '1', '1', '1', '1');
 
 INSERT IGNORE INTO sections (id_styles, name) VALUES(get_style_id('container'), 'chatSubject-container');
 INSERT IGNORE INTO sections (id_styles, name) VALUES(get_style_id('chat'), 'chatSubject-chat');
-INSERT IGNORE INTO pages_sections (id_pages, id_Sections, position) VALUES((SELECT id FROM pages WHERE keyword = 'chatSubject'), (SELECT id FROM sections WHERE name = 'chatSubject-container'), 1);
-INSERT IGNORE INTO sections_hierarchy (parent, child, position) VALUES((SELECT id FROM sections WHERE name = 'chatSubject-container'), (SELECT id FROM sections WHERE name = 'chatSubject-chat'), 1);
+INSERT IGNORE INTO pages_sections (id_pages, id_Sections, position) VALUES((SELECT id FROM pages WHERE keyword = 'chatSubject'), (SELECT id FROM sections WHERE `name` = 'chatSubject-container'), 1);
+INSERT IGNORE INTO sections_hierarchy (parent, child, position) VALUES((SELECT id FROM sections WHERE name = 'chatSubject-container'), (SELECT id FROM sections WHERE `name` = 'chatSubject-chat'), 1);
 
 
 -- add keyword chatTherapist
@@ -87,14 +87,14 @@ INSERT IGNORE INTO pages (`id`, `keyword`, `url`, `protocol`, `id_actions`, `id_
 VALUES (NULL, 'chatTherapist', '/chat/therapist/[i:gid]?/[i:uid]?', 'GET|POST', '0000000003', NULL, NULL, '0', NULL, NULL, '0000000003', (SELECT id FROM lookups WHERE lookup_code = "mobile_and_web" LIMIT 0, 1));
 
 -- add full permisitons to admin for chatTherapist
-INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM groups WHERE name = 'admin'), (SELECT id FROM pages WHERE keyword = 'chatTherapist'), '1', '1', '1', '1');
+INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM `groups` WHERE `name` = 'admin'), (SELECT id FROM pages WHERE keyword = 'chatTherapist'), '1', '1', '1', '1');
 -- add  permisitons to therapist for chatTherapist
-INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM groups WHERE name = 'therapist'), (SELECT id FROM pages WHERE keyword = 'chatTherapist'), '1', '1', '0', '0');
+INSERT IGNORE INTO `acl_groups` (`id_groups`, `id_pages`, `acl_select`, `acl_insert`, `acl_update`, `acl_delete`) VALUES ((SELECT id FROM `groups` WHERE `name` = 'therapist'), (SELECT id FROM pages WHERE keyword = 'chatTherapist'), '1', '1', '0', '0');
 
 INSERT IGNORE INTO sections (id_styles, name) VALUES(get_style_id('container'), 'chatTherapist-container');
 INSERT IGNORE INTO sections (id_styles, name) VALUES(get_style_id('chat'), 'chatTherapist-chat');
-INSERT IGNORE INTO pages_sections (id_pages, id_Sections, position) VALUES((SELECT id FROM pages WHERE keyword = 'chatTherapist'), (SELECT id FROM sections WHERE name = 'chatTherapist-container'), 1);
-INSERT IGNORE INTO sections_hierarchy (parent, child, position) VALUES((SELECT id FROM sections WHERE name = 'chatTherapist-container'), (SELECT id FROM sections WHERE name = 'chatTherapist-chat'), 1);
+INSERT IGNORE INTO pages_sections (id_pages, id_Sections, position) VALUES((SELECT id FROM pages WHERE keyword = 'chatTherapist'), (SELECT id FROM sections WHERE `name` = 'chatTherapist-container'), 1);
+INSERT IGNORE INTO sections_hierarchy (parent, child, position) VALUES((SELECT id FROM sections WHERE name = 'chatTherapist-container'), (SELECT id FROM sections WHERE `name` = 'chatTherapist-chat'), 1);
 
 -- register hook outputNavRight
 INSERT IGNORE INTO `hooks` (`id_hookTypes`, `name`, `description`, `class`, `function`, `exec_class`, `exec_function`) VALUES ((SELECT id FROM lookups WHERE lookup_code = 'hook_on_function_execute' LIMIT 0,1), 'outputChatIcon', 'Output chat icon next to profile. It also shows how many unread messages exists', 'NavView', 'output_profile', 'ChatHooks', 'outputChatIcon');

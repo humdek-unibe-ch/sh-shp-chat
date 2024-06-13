@@ -1,3 +1,6 @@
+# v1.0.3 (Unpublished)
+ - adjust `SQL` script for keywords
+
 # v1.0.2
 ### New Features
  - load plugin version using `BaseHook` class
