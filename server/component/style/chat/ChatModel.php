@@ -105,49 +105,39 @@ abstract class ChatModel extends StyleModel
     abstract public function is_chat_ready();
 
     /**
-     * Notyfy a user about a new chat message.
+     * Notify a user about a new chat message.
      *
      * @param int $id
      *  The id of the user to be notified.
      */
     protected function notify($id, $url)
     {
+        $notifications_settings = $this->user_input->get_user_notification_settings();
+        if(isset($notifications_settings['chat']) && $notifications_settings['chat'] == ''){
+            // if the user disabled the notifications do not send one
+            return;
+        }
         $subject = $this->subject_user;
         $from = "noreply@" . $_SERVER['HTTP_HOST'];
-        $url = $url;
         $msg = str_replace('@link', $url, $this->email_user);
         $msg_html = $this->is_html ? $this->parsedown->text($msg) : $msg;
-        $field_chat = $this->user_input->get_input_fields(array(
-            'page' => 'profile',
-            'id_user' => $id,
-            'form_name' => 'notification',
-            'field_name' => 'chat',
-        ));
-        if (count($field_chat) === 0 || $field_chat[0]['value'] !== "") {
-            $sql = "SELECT email FROM users WHERE id = :id";
-            $email = $this->db->query_db_first($sql, array(':id' => $id));
-            $mail = array(
-                "id_jobTypes" => $this->db->get_lookup_id_by_value(jobTypes, jobTypes_email),
-                "id_jobStatus" => $this->db->get_lookup_id_by_value(scheduledJobsStatus, scheduledJobsStatus_queued),
-                "date_to_be_executed" => date('Y-m-d H:i:s', time()),
-                "from_email" => $from,
-                "from_name" => $from,
-                "reply_to" => $from,
-                "recipient_emails" => $email['email'],
-                "subject" => $subject,
-                "body" => $msg_html,
-                "description" => "Chat notification email"
-            );
-            $this->job_scheduler->add_and_execute_job($mail, transactionBy_by_user);
-        }
-        $field_phone = $this->user_input->get_input_fields(array(
-            'page' => 'profile',
-            'id_user' => $id,
-            'form_name' => 'notification',
-            'field_name' => 'phone',
-        ));
-        if (count($field_phone) === 1 && $field_phone[0]['value'] !== "") {
-            $email = $field_phone[0]['value'] . "@sms.unibe.ch";
+        $sql = "SELECT email FROM users WHERE id = :id";
+        $email = $this->db->query_db_first($sql, array(':id' => $id));
+        $mail = array(
+            "id_jobTypes" => $this->db->get_lookup_id_by_value(jobTypes, jobTypes_email),
+            "id_jobStatus" => $this->db->get_lookup_id_by_value(scheduledJobsStatus, scheduledJobsStatus_queued),
+            "date_to_be_executed" => date('Y-m-d H:i:s', time()),
+            "from_email" => $from,
+            "from_name" => $from,
+            "reply_to" => $from,
+            "recipient_emails" => $email['email'],
+            "subject" => $subject,
+            "body" => $msg_html,
+            "description" => "Chat notification email"
+        );
+        $this->job_scheduler->add_and_execute_job($mail, transactionBy_by_user);
+        if ($notifications_settings && $notifications_settings['phone']) {
+            $email = $notifications_settings['phone'] . "@sms.unibe.ch";
             $mail = array(
                 "id_jobTypes" => $this->db->get_lookup_id_by_value(jobTypes, jobTypes_email),
                 "id_jobStatus" => $this->db->get_lookup_id_by_value(scheduledJobsStatus, scheduledJobsStatus_queued),
