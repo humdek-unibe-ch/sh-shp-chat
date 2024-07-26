@@ -1,4 +1,4 @@
-# v1.0.3 (Unpublished) Requires SelfHelp v7.0.0+
+# v1.0.3 Requires SelfHelp v7.0.0+
  - adjust `SQL` script for keywords
  - adjust sending notifications and properly show new messages based on the user
 
